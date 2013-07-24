@@ -18,11 +18,11 @@
 		<script src="{{ url_for('static', filename='js/libs/modernizr-2.5.3.min.js') }}"></script>
 		<script src="http://maps.googleapis.com/maps/api/js?key=AIzaSyCA-4K9yCtNPaZ8CcEbx1V1WCcM5t-Wz40&amp;sensor=false"></script>
 	</head>
-	
+
 	<body>
 		<div class="wrap">
 			<header>
-				<h1><span class="bigger">foodninja</span> Listen to him, he is a ninja</h1>
+				<h1><span class="bigger">foodninja</span> &nbsp;&nbsp; Listen to him, he is a ninja</h1>
 			</header>
 			<div role="main">
 				{% block content %}
@@ -47,7 +47,6 @@
 					</div>
 
 					<div class="floatleft">
-						<label class="label">&nbsp;</label>
 						<input class="submit" type="submit" value="Ready for lunch!">
 					</div><div class="clearfix"></div>
 				</form>
@@ -96,7 +95,8 @@
 				'phone': '{{ venue.contact.formattedPhone }}',
 				'icon': '{{ venue.categories[0].icon.prefix }}32{{ venue.categories[0].icon.name }}',
 				'iconlarge': '{{ venue.categories[0].icon.prefix }}64{{ venue.categories[0].icon.name }}',
-				'url': '{{ venue.canonicalUrl }}'
+				'url': '{{ venue.canonicalUrl }}',
+				'distance': '{{ recommended_venue.location.distance }}'
 			}
 			venuesArray.push(venue);
 			{% endfor %}
@@ -112,7 +112,8 @@
 				'phone': '{{ recommended_venue.contact.formattedPhone }}',
 				'icon': '{{ recommended_venue.categories[0].icon.prefix }}32{{ recommended_venue.categories[0].icon.name }}',
 				'iconlarge': '{{ recommended_venue.categories[0].icon.prefix }}64{{ recommended_venue.categories[0].icon.name }}',
-				'url': '{{ recommended_venue.canonicalUrl }}'
+				'url': '{{ recommended_venue.canonicalUrl }}',
+				'distance': '{{ recommended_venue.location.distance }}'
 			}
 		{% endif %}
 		Modernizr.load({load: '{{ url_for('static', filename='js/script.js') }}'});
