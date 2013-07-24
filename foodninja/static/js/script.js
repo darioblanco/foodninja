@@ -56,8 +56,8 @@ foodninja = {
 					navigator.geolocation.getCurrentPosition(function(position) {
 						initialLocation = new google.maps.LatLng(position.coords.latitude,position.coords.longitude);
 
-						$('#lat').val(position.coords.latitude);
-						$('#lon').val(position.coords.longitude);
+						$('#latitude').val(position.coords.latitude);
+						$('#longitude').val(position.coords.longitude);
 
 						foodninja.google.setmarker(initialLocation);
 					}, function() {
@@ -71,8 +71,8 @@ foodninja = {
 					geo.getCurrentPosition(function(position) {
 						initialLocation = new google.maps.LatLng(position.latitude,position.longitude);
 
-						$('#lat').val(position.latitude);
-						$('#lon').val(position.longitude);
+						$('#latitude').val(position.latitude);
+						$('#longitude').val(position.longitude);
 
 						foodninja.google.setmarker(initialLocation);
 					}, function() {
@@ -87,8 +87,8 @@ foodninja = {
 			} else {
 				initialLocation = new google.maps.LatLng(lat,lon);
 
-				$('#lat').val(lat);
-				$('#lon').val(lon);
+				$('#latitude').val(lat);
+				$('#longitude').val(lon);
 
 				foodninja.google.setmarker(initialLocation);
 				foodninja.google.parsevenues();
@@ -115,8 +115,8 @@ foodninja = {
 			map.setZoom(15);
 			map.setCenter(location);
 
-			$('#lat').val(location.Ya);
-			$('#lon').val(location.Za);
+			$('#latitude').val(location.jb);
+			$('#longitude').val(location.kb);
 		},
 		clearmarkers: function() {
 			if (markers) {
@@ -129,14 +129,14 @@ foodninja = {
 			if (venuesArray) {
 				for (i in venuesArray) {
 					var contentString = '<img src="' + venuesArray[i].iconlarge.slice(0, -3) + '_bg' + venuesArray[i].iconlarge.slice(-3) +'.png" class="icon floatleft">' + 
-										'<div class="floatleft"><h2>' + venuesArray[i].name + '</h2><h3>' + venuesArray[i].category + '</h3>' + 
+										'<div class="floatleft"><h2>' + venuesArray[i].name + '</h2><h3>' + venuesArray[i].category + ' (' + venuesArray[i].distance + 'm) </h3>' + 
 										'<a href="' + venuesArray[i].url + '" target="blank"><img src="https://playfoursquare.s3.amazonaws.com/press/logo/checkinon-blue.png"></a>';
 					if (venuesArray[i].street) {
 						contentString += '<p>' + venuesArray[i].street + '<br>'+ venuesArray[i].city +'<br>';
 						if (venuesArray[i].phone) {
 							contentString += 'T: ' + venuesArray[i].phone;
 						}
-						contentString += +'</p>'
+						contentString += '</p>'
 					}
 					contentString += '</div>';
 
@@ -149,7 +149,7 @@ foodninja = {
 
 			if (recommendedVenueObject) {
 				var contentString = '<img src="' + venuesArray[i].iconlarge.slice(0, -3) + '_bg' + venuesArray[i].iconlarge.slice(-3) +'.png" class="icon floatleft">' + 
-									'<div class="floatleft"><h2>' + venuesArray[i].name + '</h2><h3>' + venuesArray[i].category + '</h3>' + 
+									'<div class="floatleft"><h2>' + venuesArray[i].name + '</h2><h3>' + venuesArray[i].category + ' (' + venuesArray[i].distance + 'm) </h3>' + 
 									'<a href="' + venuesArray[i].url + '" target="blank"><img src="https://playfoursquare.s3.amazonaws.com/press/logo/checkinon-blue.png"></a>';
 				if (venuesArray[i].street) {
 					contentString += '<p>' + venuesArray[i].street + '<br>'+ venuesArray[i].city +'<br>';
