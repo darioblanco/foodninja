@@ -1,5 +1,5 @@
 from flask import flash, redirect, request, render_template, url_for
-from foursquare import FoursquareException
+from foursquare import FoursquareException, InvalidAuth
 
 from foodninja import app, fs_client, ninja
 from foodninja.forms import GeolocationForm
@@ -14,7 +14,10 @@ def index():
         lon = form.longitude.data
         radius = form.radius.data
 
-        place, venues = ninja.select_lunch_place(lat, lon, radius)
+        try:
+            place, venues = ninja.select_lunch_place(lat, lon, radius)
+        except InvalidAuth:
+            return redirect(url_for('foursquare_auth'))
 
         return render_template("base.html", form=form, place=place,
                                venues=venues, lat=lat, lon=lon)
