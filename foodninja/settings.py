@@ -1,3 +1,4 @@
+# -*- coding: UTF-8 -*-
 import os
 
 DEBUG = True
@@ -12,3 +13,18 @@ FOURSQUARE = {
     'CLIENT_SECRET': u'2KWDC3Z04Z0H33PJRGKLTUOY43CLNTRDPATZHF1UL3HQ35QE',
     'REDIRECT_URI': '/redirect'
 }
+
+BLACKLISTED_CATEGORIES = [
+    u"Bagel Shop",
+    u"Bakery",
+    u"Breakfast Spot",
+    u"Café",
+    u"Coffee Shop",
+    u"Cupcake Shop",
+    u"Dessert Shop",
+    u"Distillery",
+    u"Donut Shop",
+    u"Ice Cream Shop",
+    u"Juice Bar",
+    u"Winery"
+]

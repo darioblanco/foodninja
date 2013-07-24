@@ -3,6 +3,8 @@ import random
 from flask import flash
 from foursquare import Foursquare, FoursquareException
 
+from foodninja.settings import BLACKLISTED_CATEGORIES
+
 
 def select_lunch_place(access_token, latitude, longitude,
                        radius=None, novelty='new'):
@@ -32,7 +34,10 @@ def select_lunch_place(access_token, latitude, longitude,
                   "error")
             return False, False
 
-        venues = [item['venue'] for item in group['items']]
+        venues = []
+        for item in group['items']:
+            if item['venue']['categories'][0]['name'] not in BLACKLISTED_CATEGORIES:
+                venues.append(item['venue'])
 
         if 'warning' in response:
             flash(response['warning']['text'], "warning")
