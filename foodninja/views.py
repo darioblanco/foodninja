@@ -17,11 +17,28 @@ def index():
         if not 'access_token' in session:
             return redirect(url_for('foursquare_auth'))
 
-        place, venues = ninja.select_lunch_place(session['access_token'],
-                                                 lat, lon, radius)
+        # First chance trying to find only new places
+        venues = ninja.select_lunch_place(
+            session['access_token'], lat, lon,
+            radius=radius, novelty='new'
+        )
 
-        return render_template("base.html", form=form, place=place,
-                               venues=venues, lat=lat, lon=lon)
+        if len(venues) == 0:
+            # Second chance mixing old and new places
+            venues = ninja.select_lunch_place(
+                session['access_token'], lat, lon,
+                radius=radius
+            )
+            if len(venues) == 0:
+                # There are no more chances
+                flash("The ninja can't find a place for having lunch. "
+                      "Are you in the middle of the ocean or something?",
+                      "error")
+                return render_template("base.html", form=form,
+                                       lat=lat, lon=lon)
+
+        return render_template("base.html", form=form, lat=lat, lon=lon,
+                               venues=venues, recommended_venue=venues[0])
     return render_template('base.html', form=form)
 
 

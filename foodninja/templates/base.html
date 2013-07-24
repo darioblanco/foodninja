@@ -101,19 +101,19 @@
 			console.log(venue);
 			{% endfor %}
 		{% endif %}
-		{% if place %}
-			place = {
-				'name': '{{ place.name|e }}',
-				'lat': '{{ place.location.lat }}',
-				'lng': '{{ place.location.lng }}',
-				'category': '{{ place.categories[0].name|e }}',
-				'street': '{{ place.location.address }}',
-				'city': '{{ place.location.postalCode }} {{ place.location.city }}',
-				'phone': '{{ place.contact.formattedPhone }}',
-				'icon': '{{ place.categories[0].icon.prefix }}32{{ place.categories[0].icon.name }}',
-				'iconlarge': '{{ place.categories[0].icon.prefix }}64{{ place.categories[0].icon.name }}',
+		{% if recommended_venue %}
+			recommended_venue = {
+				'name': '{{ recommended_venue.name|e }}',
+				'lat': '{{ recommended_venue.location.lat }}',
+				'lng': '{{ recommended_venue.location.lng }}',
+				'category': '{{ recommended_venue.categories[0].name|e }}',
+				'street': '{{ recommended_venue.location.address }}',
+				'city': '{{ recommended_venue.location.postalCode }} {{ recommended_venue.location.city }}',
+				'phone': '{{ recommended_venue.contact.formattedPhone }}',
+				'icon': '{{ recommended_venue.categories[0].icon.prefix }}32{{ recommended_venue.categories[0].icon.name }}',
+				'iconlarge': '{{ recommended_venue.categories[0].icon.prefix }}64{{ recommended_venue.categories[0].icon.name }}',
 			}
-			console.log(place);
+			console.log(recommended_venue);
 		{% endif %}
 		Modernizr.load({load: '{{ url_for('static', filename='js/script.js') }}'});
 		Modernizr.load({load: 'http://ewig.edelight.biz/javascript/ed_product_widget.min.js'});
