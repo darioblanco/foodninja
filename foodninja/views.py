@@ -53,6 +53,6 @@ def about():
     return render_template('about.html')
 
 
-@app.route('/imprint')
-def imprint():
+@app.route('/policy')
+def policy():
     return render_template('imprint.html')
