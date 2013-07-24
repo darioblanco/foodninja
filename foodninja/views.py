@@ -55,4 +55,4 @@ def about():
 
 @app.route('/policy')
 def policy():
-    return render_template('imprint.html')
+    return render_template('policy.html')
