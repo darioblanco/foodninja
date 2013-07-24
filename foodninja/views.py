@@ -44,7 +44,6 @@ def foursquare_redirect():
         flash("Error connecting to Foursquare API", "error")
     else:
         session['access_token'] = access_token
-        session.modified = True
 
     return redirect(url_for('index'))
 
