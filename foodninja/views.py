@@ -38,7 +38,7 @@ def index():
                                        lat=lat, lon=lon)
 
         return render_template("base.html", form=form, lat=lat, lon=lon,
-                               venues=venues, recommended_venue=venues[0])
+                               venues=venues[0:10], recommended_venue=venues[0])
     return render_template('base.html', form=form)
 
 
