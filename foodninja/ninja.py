@@ -62,8 +62,8 @@ def _calculate_priority(venue):
         # When there is no ranking, 4 is the default punishment
         priority += 4
 
-    # Punish if the distance is farther than 300m
-    priority += venue['location']['distance'] / 300
+    # Punish each 15m of distance
+    priority += venue['location']['distance'] / 15
 
     # Punish if you don't like it
     if not venue['like']:
