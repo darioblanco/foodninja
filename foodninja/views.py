@@ -1,7 +1,7 @@
 from flask import flash, redirect, request, render_template, url_for
-from foursquare import FoursquareException, InvalidAuth
+from foursquare import FoursquareException
 
-from foodninja import app, fs_client
+from foodninja import app, fs_client, ninja
 from foodninja.forms import GeolocationForm
 from foodninja.settings import FOURSQUARE
 
@@ -14,38 +14,10 @@ def index():
         lon = form.longitude.data
         radius = form.radius.data
 
-        params = {'ll': '{0},{1}'.format(lat, lon)}  # XX.XX,YY.YY}
-        if radius:
-            params['radius'] = radius
-        try:
-            # Get the user's data
-            explore_resp = fs_client.venues.explore(params=params)
-        except InvalidAuth:
-            return redirect(url_for('foursquare_auth'))
-        except FoursquareException:
-            flash("Unable to connect to Foursquare", "error")
-        else:
-            items, venues = [], []
-            for group in explore_resp['groups']:
-                if group['name'] == 'recommended':
-                    items = group['items']
+        place, venues = ninja.select_lunch_place(lat, lon, radius)
 
-            if len(items) == 0:
-                flash("The ninja can't find a place for having lunch. "
-                      "Are you in the middle of the ocean or something?",
-                      "error")
-            else:
-                for item in group['items']:
-                    venues.append(item['venue'])
-
-            if 'warning' in explore_resp:
-                flash(explore_resp['warning']['text'], "warning")
-            if 'suggestedRadius' in explore_resp:
-                flash("We recomend you to use a radius of "
-                      "{0} meters".format(explore_resp['suggestedRadius']),
-                      "info")
-            return render_template("base.html", form=form, venues=venues,
-                                   lat=lat, lon=lon)
+        return render_template("base.html", form=form, place=place,
+                               venues=venues, lat=lat, lon=lon)
     return render_template('base.html', form=form)
 
 
@@ -66,7 +38,7 @@ def foursquare_redirect():
         access_token = fs_client.oauth.get_token(code)
         # Apply the returned access token to the client
         fs_client.set_access_token(access_token)
-    except FoursquareException as e:
+    except FoursquareException:
         flash("Error connecting to Foursquare API", "error")
 
     return redirect(url_for('index'))
