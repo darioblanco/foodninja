@@ -1,6 +1,7 @@
 import os
 
 DEBUG = True
+SECRET_KEY = "secret"
 
 BASEDIR = os.path.abspath(os.path.dirname(__file__).replace('\\', '/'))
 
