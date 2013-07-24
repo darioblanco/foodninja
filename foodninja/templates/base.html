@@ -31,16 +31,19 @@
 					<div class="floatleft">
 						{{ form.latitude.label }}
 						{{ form.latitude }}
+						{% if form.latitude.errors %}{{ form.latitude.errors }}{% endif %}
 					</div>
 
 					<div class="floatleft">
 						{{ form.longitude.label }}
 						{{ form.longitude }}
+						{% if form.longitude.errors %}{{ form.longitude.errors }}{% endif %}
 					</div>
 
 					<div class="floatleft">
 						{{ form.radius.label }}
 						{{ form.radius }}
+						{% if form.radius.errors %}{{ form.radius.errors }}{% endif %}
 					</div>
 
 					<div class="floatleft">
