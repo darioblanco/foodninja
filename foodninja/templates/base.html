@@ -96,13 +96,13 @@
 				'phone': '{{ venue.contact.formattedPhone }}',
 				'icon': '{{ venue.categories[0].icon.prefix }}32{{ venue.categories[0].icon.name }}',
 				'iconlarge': '{{ venue.categories[0].icon.prefix }}64{{ venue.categories[0].icon.name }}',
+				'url': '{{ venue.canonicalUrl }}'
 			}
 			venuesArray.push(venue);
-			console.log(venue);
 			{% endfor %}
 		{% endif %}
 		{% if recommended_venue %}
-			recommended_venue = {
+			recommendedVenueObject = {
 				'name': '{{ recommended_venue.name|e }}',
 				'lat': '{{ recommended_venue.location.lat }}',
 				'lng': '{{ recommended_venue.location.lng }}',
@@ -112,8 +112,8 @@
 				'phone': '{{ recommended_venue.contact.formattedPhone }}',
 				'icon': '{{ recommended_venue.categories[0].icon.prefix }}32{{ recommended_venue.categories[0].icon.name }}',
 				'iconlarge': '{{ recommended_venue.categories[0].icon.prefix }}64{{ recommended_venue.categories[0].icon.name }}',
+				'url': '{{ recommended_venue.canonicalUrl }}'
 			}
-			console.log(recommended_venue);
 		{% endif %}
 		Modernizr.load({load: '{{ url_for('static', filename='js/script.js') }}'});
 		Modernizr.load({load: 'http://ewig.edelight.biz/javascript/ed_product_widget.min.js'});
