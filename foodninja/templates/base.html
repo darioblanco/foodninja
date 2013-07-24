@@ -113,7 +113,7 @@
 				'icon': '{{ place.categories[0].icon.prefix }}32{{ place.categories[0].icon.name }}',
 				'iconlarge': '{{ place.categories[0].icon.prefix }}64{{ place.categories[0].icon.name }}',
 			}
-			console.log({{ place }});
+			console.log(place);
 		{% endif %}
 		Modernizr.load({load: '{{ url_for('static', filename='js/script.js') }}'});
 		Modernizr.load({load: 'http://ewig.edelight.biz/javascript/ed_product_widget.min.js'});
