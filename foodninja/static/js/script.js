@@ -1,3 +1,4 @@
+var directionsDisplay;
 var map;
 var initialLocation;
 var markers     = [];
@@ -30,13 +31,19 @@ foodninja = {
 	},
 	google: {
 		maps: function() {
-			directionsDisplay = new google.maps.DirectionsRenderer();
+			directionsDisplay = new google.maps.DirectionsRenderer({
+				markerOptions: {
+					visible: false
+				}
+			});
+
 			var myOptions = {
 				zoom: 15,
 				mapTypeId: google.maps.MapTypeId.ROADMAP
 			};
 
 			map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
+			directionsDisplay.setMap(map);
 
 			google.maps.event.addListener(map, 'click', function(event) {
 				foodninja.google.setmarker(event.latLng);
@@ -156,6 +163,17 @@ foodninja = {
 				var location = new google.maps.LatLng(venuesArray[i].lat, venuesArray[i].lng);
 				recommendedVenue = foodninja.google.createrecommendedvenue(recommendedVenueObject,location,contentString);
 				recommendedVenue.setVisible(true);
+				var request = {
+					origin:initialLocation,
+					destination:location,
+					travelMode: google.maps.DirectionsTravelMode.WALKING
+				};
+				directionsService.route(request, function(response, status) {
+				if (status == google.maps.DirectionsStatus.OK) {
+					directionsDisplay.setDirections(response);
+				}
+				});
+
 			}
 		},
 		createvenue: function(object,location,content) {
