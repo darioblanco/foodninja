@@ -1,12 +1,11 @@
 import random
 
 from flask import flash
-from foursquare import FoursquareException, InvalidAuth
-
-from foodninja import fs_client
+from foursquare import Foursquare, FoursquareException
 
 
-def select_lunch_place(latitude, longitude, radius=None, novelty='new'):
+def select_lunch_place(access_token, latitude, longitude,
+                       radius=None, novelty='new'):
     params = {
         'll': '{0},{1}'.format(latitude, longitude),
         'section': 'food',
@@ -15,10 +14,10 @@ def select_lunch_place(latitude, longitude, radius=None, novelty='new'):
     if radius:
         params['radius'] = radius
 
+    client = Foursquare(access_token=access_token)
+
     try:
-        response = fs_client.venues.explore(params=params)
-    except InvalidAuth:
-        raise
+        response = client.venues.explore(params=params)
     except FoursquareException:
         flash("Unable to connect to Foursquare", "error")
     else:

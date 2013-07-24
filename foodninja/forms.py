@@ -28,5 +28,4 @@ class GeolocationForm(Form):
         description=u"Insert the longitude"
     )
     radius = IntegerField('Radius (meters)', [Optional()],
-                          description=u"Insert the radius in meters",
-                          default=500)
+                          description=u"Insert the radius in meters")
