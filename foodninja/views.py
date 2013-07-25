@@ -54,13 +54,14 @@ def foursquare_redirect():
     """Gets the user's access token from Foursquare"""
     code = request.args.get('code', '')
 
-    try:
-        # Interrogate foursquare's servers to get the user's access_token
-        access_token = fs_client.oauth.get_token(code)
-    except FoursquareException:
-        flash("Error connecting to Foursquare API", "error")
-    else:
-        session['access_token'] = access_token
+    if code is not '':
+        try:
+            # Interrogate foursquare's servers to get the user's access_token
+            access_token = fs_client.oauth.get_token(code)
+        except FoursquareException:
+            flash("Error connecting to Foursquare API", "error")
+        else:
+            session['access_token'] = access_token
 
     return redirect(url_for('index'))
 
